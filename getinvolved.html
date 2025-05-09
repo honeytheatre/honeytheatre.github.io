@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honey Theatre</title>
+  <link href="https://db.onlinewebfonts.com/c/413438edc16177b70627d108238ec05f?family=TRJN+DaVinci+Text"
+    rel="stylesheet" />
+
+  <script src="https://cdn.userway.org/widget.js" data-account="AlXfe9YAX3"></script>
+  <link rel="stylesheet" href="static/styles/mainstyle.css" />
+  <link rel="icon" type="image/png" href="/static/img/HoneyIcon.png">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbaralt">
+    <a href="index.html"> <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="logo"></a>
+
+    <!-- Mobile Menu Button - NEW ADDITION -->
+    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+  </button>
+
+    <div class="nav-links">
+      <a class="orangelink" href="about.html">About</a>
+      <a class="orangelink" href="getinvolved.html">Get Involved</a>
+      <a class="orangelink" href="events.html">Events</a>
+      <a class="orangelink" href="news.html">News</a>
+    </div>
+    <button class="accessibility-toggle" aria-label="Toggle accessibility features">
+      <span class="toggle-label">ACCESSIBILITY</span>
+      <span class="toggle-switch">
+        <span class="toggle-handle"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div class="secondarylanding">
+    <!-- Sticky video background -->
+    <div class="image-container">
+      <img src="static/img/getinvovled.png" alt="honey theater community" />
+    </div>
+
+    <!-- Hero text over video -->
+    <div class="hero-text2 orangetext">Get Involved</div>
+  </div>
+  <button class="landingbutton nohover" type="button" >Sign Up To Our Creative Directory</button>
+
+  <div class="body-content">
+
+  
+
+    <div class="form-holder2">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeUqQCWn9dojhyGnM8Dz6GFpZNDYBwScST0XBTcdprYUK8Keg/viewform?embedded=true" width="100%" height="4383" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    
+    <div class="endspacer"></div>
+  </div>
+
+
+  <!-- Newsletter Button -->
+  <div class="newsletter-btn" id="newsletterBtn">
+    Sign up to our newsletter!
+    <button class="close-btn" id="closeNewsletterBtn">×</button>
+  </div>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- Column 1: Logo -->
+      <div class="footer-column">
+        <a href="#" class="back-to-top" title="Back to Top">
+          <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="footer-logo">
+        </a>
+      </div>
+
+      <!-- Column 2: Contact -->
+      <div class="footer-column">
+        <h3><a href="/contact.html">CONTACT US</a></h3>
+        <p><a href="mailto:honeytheatreco@gmail.com">honeytheatreco@gmail.com</a></p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/honey.theatre/" target="_blank" class="social-icon">
+            <img src="static/img/instagramWhite.png" alt="Instagram">
+          </a>
+          <a href="#" class="social-icon" target="_blank">
+            <img src="static/img/tiktoklogoWhite.png" alt="TikTok">
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Support -->
+      <div class="footer-column">
+        <h3><a href="/support.html">SUPPORT US</a></h3>
+        <p>© Honey Theatre 2025</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      Website Designed & Developed by <a href="https://www.1-earth.world" target="_blank">1EARTH Productions</a>
+      🌐
+    </div>
+  </footer>
+
+
+
+
+  <script>// BACK 2 TOP BUTTON SCRIPT
+    document.querySelector('.back-to-top').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <script>
+    // Track UserWay widget state
+    let userWayWidgetOpen = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const heroText = document.querySelector(".hero-text");
+      const curtainLeft = document.querySelector(".curtain-left");
+      const curtainRight = document.querySelector(".curtain-right");
+      const curtainLinks = document.querySelectorAll(".curtain-content a");
+      const accessibilityToggle = document.querySelector(
+        ".accessibility-toggle"
+      );
+
+      let curtainsClosed = false;
+
+      function handleScroll() {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const triggerPoint = windowHeight * 0.5;
+
+        const progress = Math.min(scrollPosition / triggerPoint, 1);
+
+        curtainLeft.style.transform = `translateX(${-100 + progress * 100}%)`;
+        curtainRight.style.transform = `translateX(${100 - progress * 100}%)`;
+        heroText.style.opacity = 1 - progress;
+
+        if (progress > 0.3) {
+          curtainLinks.forEach((link) => {
+            link.style.opacity = Math.min((progress - 0.3) / 0.2, 1);
+          });
+        } else {
+          curtainLinks.forEach((link) => {
+            link.style.opacity = 0;
+          });
+        }
+
+        if (progress >= 1 && !curtainsClosed) {
+          curtainsClosed = true;
+        } else if (progress < 1 && curtainsClosed) {
+          curtainsClosed = false;
+        }
+      }
+
+      // Handle accessibility toggle
+      accessibilityToggle.addEventListener("click", function () {
+        this.classList.toggle("active");
+        userWayWidgetOpen = !userWayWidgetOpen;
+
+        // Method 1: Click the actual UserWay button
+        const userwayButton = document.querySelector(
+          "#userwayAccessibilityIcon"
+        );
+        if (userwayButton) {
+          userwayButton.click();
+        }
+        // Method 2: Fallback to postMessage
+        else {
+          const userwayIframe = document.querySelector(
+            "#userway-widget iframe"
+          );
+          if (userwayIframe && userwayIframe.contentWindow) {
+            try {
+              userwayIframe.contentWindow.postMessage(
+                {
+                  action: userWayWidgetOpen ? "open" : "close",
+                  source: "userway",
+                },
+                "*"
+              );
+            } catch (e) {
+              console.error("Error communicating with UserWay:", e);
+              toggleFallbackAccessibility();
+            }
+          } else {
+            toggleFallbackAccessibility();
+          }
+        }
+
+        function toggleFallbackAccessibility() {
+          console.warn("Using fallback accessibility mode");
+          document.body.classList.toggle(
+            "accessibility-mode",
+            userWayWidgetOpen
+          );
+        }
+      });
+
+      function init() {
+        curtainLeft.style.transform = "translateX(-100%)";
+        curtainRight.style.transform = "translateX(100%)";
+        heroText.style.opacity = 1;
+        curtainLinks.forEach((link) => (link.style.opacity = 0));
+        window.addEventListener("scroll", handleScroll);
+
+        // Hide UserWay widget initially
+        hideUserWayIcon();
+      }
+
+      function hideUserWayIcon() {
+        const userwayIcon = document.querySelector(
+          "#userwayAccessibilityIcon"
+        );
+        if (userwayIcon) {
+          userwayIcon.style.display = "none";
+        } else {
+          // Keep checking until we find it (max 10 times)
+          let checks = 0;
+          const checkInterval = setInterval(() => {
+            checks++;
+            const icon = document.querySelector("#userwayAccessibilityIcon");
+            if (icon || checks >= 10) {
+              clearInterval(checkInterval);
+              if (icon) icon.style.display = "none";
+            }
+          }, 500);
+        }
+      }
+
+      init();
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const newsletterBtn = document.getElementById('newsletterBtn');
+      const closeBtn = document.getElementById('closeNewsletterBtn');
+
+
+
+      // Show button after 3 seconds
+      setTimeout(function () {
+        console.log('Attempting to show newsletter button');
+        if (!localStorage.getItem('newsletterClosed')) {
+          console.log('Showing newsletter button');
+          newsletterBtn.classList.add('visible');
+        } else {
+          console.log('Newsletter was previously closed by user');
+        }
+      }, 3000);
+
+      // Close button functionality
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation(); // Prevent triggering the main button click
+        newsletterBtn.classList.remove('visible');
+        newsletterBtn.classList.add('hidden');
+
+        // Store preference in localStorage
+        localStorage.setItem('newsletterClosed', 'true');
+      });
+
+      // Main button click (could link to a signup page)
+      newsletterBtn.addEventListener('click', function () {
+        // Replace this with your actual signup functionality
+        window.location.href = '/newsletter-signup.html';
+      });
+    });
+  </script>
+  <script>
+    // Intersection Observer for animated text
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hero text animation is handled by CSS
+        
+        // Animate paragraphs when they come into view
+        const animatedElements = document.querySelectorAll('.animatedtext');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
+<script>
+  // Mobile Menu Toggle
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navbar = document.querySelector('.navbar');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'mobile-menu-overlay';
+
+    // Create mobile menu content
+    mobileMenu.innerHTML = `
+      <div class="mobile-menu-header">
+        <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="mobile-menu-logo">
+        <button class="mobile-menu-close" aria-label="Close menu">×</button>
+      </div>
+      <div class="mobile-menu-links">
+        <a class="orangelink" href="about.html">About</a>
+        <a class="orangelink" href="getinvolved.html">Get Involved</a>
+        <a class="orangelink" href="events.html">Events</a>
+        <a class="orangelink" href="news.html">News</a>
+      </div>
+    `;
+
+    document.body.appendChild(mobileMenu);
+    const closeButton = mobileMenu.querySelector('.mobile-menu-close');
+
+    // Toggle menu
+    mobileToggle.addEventListener('click', function () {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      navbar.style.opacity = '0';
+      navbar.style.pointerEvents = 'none'; // Disable interactions
+    });
+
+    // Close menu
+    closeButton.addEventListener('click', function () {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+      navbar.style.opacity = '1';
+      navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+    });
+
+    // Close menu when clicking on links
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-links a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        navbar.style.opacity = '1';
+        navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+      });
+    });
+  });
+</script>
+</body>
+
+</html>
