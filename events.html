@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honey Theatre</title>
+  <link href="https://db.onlinewebfonts.com/c/413438edc16177b70627d108238ec05f?family=TRJN+DaVinci+Text"
+    rel="stylesheet" />
+
+  <script src="https://cdn.userway.org/widget.js" data-account="AlXfe9YAX3"></script>
+  <link rel="stylesheet" href="static/styles/mainstyle.css" />
+  <link rel="icon" type="image/png" href="/static/img/HoneyIcon.png" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbaralt">
+    <a href="index.html">
+      <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="logo" /></a>
+
+    <!-- Mobile Menu Button - NEW ADDITION -->
+    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a class="orangelink" href="about.html">About</a>
+      <a class="orangelink" href="getinvolved.html">Get Involved</a>
+      <a class="orangelink" href="events.html">Events</a>
+      <a class="orangelink" href="news.html">News</a>
+    </div>
+    <button class="accessibility-toggle" aria-label="Toggle accessibility features">
+      <span class="toggle-label">ACCESSIBILITY</span>
+      <span class="toggle-switch">
+        <span class="toggle-handle"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div class="secondarylanding">
+    <!-- Sticky video background -->
+    <div class="image-container">
+      <img class=" thin-image" src="static/img/construction.JPG" alt="honey theater community" />
+    </div>
+
+    <!-- Hero text over video -->
+    <div class="hero-text2 orangetext">Events</div>
+  </div>
+  <!-- <button class="landingbutton" type="button" onclick="alert('Hello world!')">SUPPORT US!</button> -->
+
+  <div class="body-content">
+    <!-- Upcoming Events -->
+    <div class="paragraph-holder">
+      <div class="subcategory orangetext">
+        <p>Upcoming Events</p>
+      </div>
+    </div>
+    <div class="paragraph-holder">
+      <div class="bottom-line"></div>
+    </div>
+    <div id="upcoming-events" class="events-container"></div>
+
+    <!-- Archived Events -->
+    <div class="paragraph-holder">
+      <div class="subcategory orangetext">
+        <p>Archived Events</p>
+      </div>
+    </div>
+    <div class="paragraph-holder">
+      <div class="bottom-line"></div>
+    </div>
+    <div id="archived-events" class="events-container"></div>
+
+    <!-- Error Fallback (hidden by default) -->
+    <div id="events-error" style="display: none;">
+      <div class="paragraph-holder">
+        <p class="animatedtext" style="text-align: center; width: 100%;">EVENT SECTION IS UNDER CONSTRUCTION</p>
+      </div>
+    </div>
+
+    <div class="endspacer"></div>
+  </div>
+
+  <div id="event-popup-overlay" class="event-popup-overlay">
+    <div class="event-popup-container">
+      <button class="event-popup-close">×</button>
+      <div class="event-popup-content">
+        <div class="event-popup-header">
+          <h2 class="event-popup-title"></h2>
+          <p class="event-popup-category"></p>
+          <p class="event-popup-date"></p>
+          <p class="event-popup-location"></p>
+        </div>
+        <div class="event-popup-main">
+          <img class="event-popup-image" src="" alt="">
+          <div class="event-popup-description"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    
+  </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const upcomingContainer = document.getElementById('upcoming-events');
+    const archivedContainer = document.getElementById('archived-events');
+    const errorContainer = document.getElementById('events-error');
+    const placeholderImage = 'static/img/construction.JPG';
+
+    // Create loading containers
+    const upcomingLoading = document.createElement('div');
+    upcomingLoading.className = 'loading-container';
+    upcomingLoading.innerHTML = `
+      <video autoplay loop muted playsinline class="loading-gif">
+        <source src="/static/video/loading.mp4" type="video/mp4">
+        <!-- Fallback image if video isn't supported -->
+        <img src="/static/img/loading-fallback.gif" alt="Loading...">
+      </video>
+      <div class="loading-message">Loading upcoming events...</div>
+    `;
+    upcomingContainer.appendChild(upcomingLoading);
+
+    const archivedLoading = document.createElement('div');
+    archivedLoading.className = 'loading-container';
+    archivedLoading.innerHTML = `
+      <video autoplay loop muted playsinline class="loading-gif">
+        <source src="/static/video/loading.mp4" type="video/mp4">
+        <!-- Fallback image if video isn't supported -->
+        <img src="/static/img/loading-fallback.gif" alt="Loading...">
+      </video>
+      <div class="loading-message">Loading past events...</div>
+    `;
+    archivedContainer.appendChild(archivedLoading);
+
+    // Month abbreviations
+    const monthAbbr = [
+      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+
+    // Function to format date as "1st<br>JUN"
+    function formatEventDate(dateStr) {
+      if (!dateStr) return '';
+      
+      const [day, month, year] = dateStr.split('/').map(Number);
+      const monthName = monthAbbr[month - 1] || '';
+      
+      // Add ordinal suffix
+      let dayWithSuffix;
+      if (day === 1 || day === 21 || day === 31) {
+        dayWithSuffix = day + 'st';
+      } else if (day === 2 || day === 22) {
+        dayWithSuffix = day + 'nd';
+      } else if (day === 3 || day === 23) {
+        dayWithSuffix = day + 'rd';
+      } else {
+        dayWithSuffix = day + 'th';
+      }
+      
+      return `${dayWithSuffix}<br>${monthName}`;
+    }
+
+    // Initialize popup elements
+    const popupOverlay = document.getElementById('event-popup-overlay');
+    const popupClose = document.querySelector('.event-popup-close');
+
+    // Function to open popup with event data
+    function openEventPopup(eventData, isArchived) {
+      // Set popup content
+      document.querySelector('.event-popup-title').textContent = eventData.title;
+      document.querySelector('.event-popup-category').textContent = eventData.category.toUpperCase();
+      
+      // Set formatted date in circle
+      const dateCircle = document.createElement('div');
+      dateCircle.className = 'event-popup-date-circle';
+      dateCircle.innerHTML = `
+        <div class="date-content">${formatEventDate(eventData.date)}</div>
+      `;
+      
+      // Clear existing date and add new circle
+      const dateContainer = document.querySelector('.event-popup-date');
+      dateContainer.innerHTML = '';
+      dateContainer.appendChild(dateCircle);
+      
+      document.querySelector('.event-popup-location').textContent = eventData.location;
+      
+      // Set image - fallback to placeholder if empty
+      const imgElement = document.querySelector('.event-popup-image');
+      imgElement.src = eventData.image || placeholderImage;
+      imgElement.alt = eventData.title;
+      
+      // Set description (with HTML as-is)
+      document.querySelector('.event-popup-description').innerHTML = eventData.description;
+      
+      // Create ticket button HTML
+      const ticketButtonHTML = isArchived 
+        ? '<button class="ticket-btn archived" disabled>PAST EVENT</button>'
+        : `<a href="${eventData.ticketLink}" class="ticket-btn">BOOK TICKETS</a>`;
+      
+      // Add ticket button to popup
+      const ticketButtonContainer = document.createElement('div');
+      ticketButtonContainer.className = 'event-popup-ticket-button';
+      ticketButtonContainer.innerHTML = ticketButtonHTML;
+      
+      // Clear any existing button and add new one
+      const existingButton = document.querySelector('.event-popup-ticket-button');
+      if (existingButton) {
+        existingButton.remove();
+      }
+      document.querySelector('.event-popup-content').appendChild(ticketButtonContainer);
+      
+      // Show popup
+      popupOverlay.classList.add('active');
+      
+      // Lock page scroll
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Function to close popup
+    function closeEventPopup() {
+      popupOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Close popup when clicking X
+    popupClose.addEventListener('click', closeEventPopup);
+    
+    // Close popup when clicking outside
+    popupOverlay.addEventListener('click', function(e) {
+      if (e.target === popupOverlay) {
+        closeEventPopup();
+      }
+    });
+    
+    // Close popup with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popupOverlay.classList.contains('active')) {
+        closeEventPopup();
+      }
+    });
+
+    // Fetch events from WordPress
+    fetch('https://public-api.wordpress.com/wp/v2/sites/honeytheatre.wordpress.com/pages/20')
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(data => {
+        // Remove loading indicators
+        upcomingContainer.innerHTML = '';
+        archivedContainer.innerHTML = '';
+        
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(data.content.rendered, 'text/html');
+        const eventGroups = htmlDoc.querySelectorAll('.wp-block-group.is-layout-flex');
+
+        // Get current date in GMT
+        const now = new Date();
+        const todayGMT = new Date(Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate()
+        ));
+
+        // Track unique events by date to avoid duplicates
+        const uniqueEvents = new Map();
+
+        eventGroups.forEach(group => {
+          const dateText = group.querySelector('p[style*="uppercase"]')?.textContent;
+          if (!dateText) return;
+
+          // Only add if we haven't seen this date before
+          if (!uniqueEvents.has(dateText)) {
+            const [day, month, year] = dateText.split('/').map(Number);
+            const eventDate = new Date(Date.UTC(year, month - 1, day));
+            uniqueEvents.set(dateText, { group, date: eventDate });
+          }
+        });
+
+        // Convert Map values to arrays
+        const allEvents = Array.from(uniqueEvents.values());
+
+        // Separate into upcoming/archived
+        const upcoming = allEvents.filter(event => event.date >= todayGMT);
+        const archived = allEvents.filter(event => event.date < todayGMT);
+
+        // Sort upcoming events (soonest first)
+        upcoming.sort((a, b) => a.date - b.date);
+
+        // Sort archived events (newest first)
+        archived.sort((a, b) => b.date - a.date);
+
+        // Render events
+        renderEvents(upcomingContainer, upcoming, false);
+        renderEvents(archivedContainer, archived, true);
+      })
+      .catch(error => {
+        console.error('Error loading events:', error);
+        // Remove loading indicators and show error
+        upcomingContainer.innerHTML = '';
+        archivedContainer.innerHTML = '';
+        errorContainer.style.display = 'block';
+      });
+
+    function renderEvents(container, events, isArchived) {
+      if (!events.length) {
+        container.innerHTML = `
+          <div class="paragraph-holder">
+            <p class="animatedtext" style="text-align: center; width: 100%;">
+              ${isArchived ? 'No past events yet' : 'No upcoming events scheduled'}
+            </p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = events.map(({ group }) => {
+        const title = group.querySelector('h3')?.textContent || 'Untitled Event';
+        const category = group.querySelectorAll('p')[0]?.textContent || '';
+        const location = group.querySelectorAll('p')[1]?.textContent || '';
+        const date = group.querySelector('p[style*="uppercase"]')?.textContent || '';
+        const formattedDate = formatEventDate(date);
+        const image = group.querySelector('img')?.src || '';
+        const ticketLink = group.querySelector('.wp-block-button__link')?.href || '#';
+        const description = group.querySelectorAll('p')[3]?.innerHTML || 'No description available';
+        
+        return `
+          <div class="paragraph-holder event-row">
+            <div class="event-date-circle animatedtext">
+              <div class="date-content">${formattedDate}</div>
+            </div>
+            <div class="event-image animatedtext">
+              <img src="${image}" alt="${title}" onerror="this.src='${placeholderImage}'">
+            </div>
+            <div class="event-details animatedtext">
+              <h3>${title}</h3>
+              <p style="text-transform: uppercase; color: #FF6B00;">${category}</p>
+              <p>${location}</p>
+              <p class="read-more" data-event='${JSON.stringify({
+                title,
+                category,
+                location,
+                date,
+                image,
+                description,
+                ticketLink
+              }).replace(/'/g, "\\'")}' data-archived="${isArchived}">Read more...</p>
+            </div>
+            <div class="event-action animatedtext center-align">
+              ${isArchived 
+                ? '<button class="ticket-btn archived" disabled>PAST EVENT</button>'
+                : `<a href="${ticketLink}" class="ticket-btn">BOOK TICKETS</a>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // Add click handlers to "Read more" links
+      container.querySelectorAll('.read-more').forEach(link => {
+        link.addEventListener('click', function() {
+          const eventData = JSON.parse(this.getAttribute('data-event'));
+          const isArchived = this.getAttribute('data-archived') === 'true';
+          openEventPopup(eventData, isArchived);
+        });
+      });
+      
+      // Initialize animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.event-row .animatedtext').forEach(el => {
+        observer.observe(el);
+      });
+    }
+  });
+</script>
+
+  <!-- Newsletter Button -->
+  <div class="newsletter-btn" id="newsletterBtn">
+    Sign up to our newsletter!
+    <button class="close-btn" id="closeNewsletterBtn">×</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- Column 1: Logo -->
+      <div class="footer-column">
+        <a href="#" class="back-to-top" title="Back to Top">
+          <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="footer-logo" />
+        </a>
+      </div>
+
+      <!-- Column 2: Contact -->
+      <div class="footer-column">
+        <h3><a href="/contact.html">CONTACT US</a></h3>
+        <p>
+          <a href="mailto:honeytheatreco@gmail.com">honeytheatreco@gmail.com</a>
+        </p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/honey.theatre/" target="_blank" class="social-icon">
+            <img src="static/img/instagramWhite.png" alt="Instagram" />
+          </a>
+          <a href="#" class="social-icon" target="_blank">
+            <img src="static/img/tiktoklogoWhite.png" alt="TikTok" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Support -->
+      <div class="footer-column">
+        <h3><a href="/support.html">SUPPORT US</a></h3>
+        <p>© Honey Theatre 2025</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      Website Designed & Developed by
+      <a href="https://www.1-earth.world" target="_blank">1EARTH Productions</a>
+      🌐
+    </div>
+  </footer>
+
+  <script>
+    // BACK 2 TOP BUTTON SCRIPT
+    document
+      .querySelector(".back-to-top")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+  </script>
+
+  <script>
+    // Track UserWay widget state
+    let userWayWidgetOpen = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const heroText = document.querySelector(".hero-text");
+      const curtainLeft = document.querySelector(".curtain-left");
+      const curtainRight = document.querySelector(".curtain-right");
+      const curtainLinks = document.querySelectorAll(".curtain-content a");
+      const accessibilityToggle = document.querySelector(
+        ".accessibility-toggle"
+      );
+
+      // let curtainsClosed = false;
+
+      // function handleScroll() {
+      //   const scrollPosition = window.scrollY;
+      //   const windowHeight = window.innerHeight;
+      //   const triggerPoint = windowHeight * 0.5;
+
+      //   const progress = Math.min(scrollPosition / triggerPoint, 1);
+
+      //   curtainLeft.style.transform = `translateX(${-100 + progress * 100}%)`;
+      //   curtainRight.style.transform = `translateX(${100 - progress * 100}%)`;
+      //   heroText.style.opacity = 1 - progress;
+
+      //   if (progress > 0.3) {
+      //     curtainLinks.forEach((link) => {
+      //       link.style.opacity = Math.min((progress - 0.3) / 0.2, 1);
+      //     });
+      //   } else {
+      //     curtainLinks.forEach((link) => {
+      //       link.style.opacity = 0;
+      //     });
+      //   }
+
+      //   if (progress >= 1 && !curtainsClosed) {
+      //     curtainsClosed = true;
+      //   } else if (progress < 1 && curtainsClosed) {
+      //     curtainsClosed = false;
+      //   }
+      // }
+
+      // Handle accessibility toggle - NEW VERSION
+      if (accessibilityToggle) {
+          accessibilityToggle.addEventListener('click', function () {
+              this.classList.toggle('active');
+              userWayWidgetOpen = !userWayWidgetOpen;
+
+              if (typeof UserWay === 'object' && typeof UserWay.widgetToggle === 'function') {
+                  UserWay.widgetToggle();
+              } else {
+                  const userwayButton = document.querySelector('#userwayAccessibilityIcon');
+                  if (userwayButton) {
+                      userwayButton.click();
+                  } else {
+                      const userwayIframe = document.querySelector('#userway-widget iframe');
+                      if (userwayIframe && userwayIframe.contentWindow) {
+                          try {
+                              userwayIframe.contentWindow.postMessage({
+                                  action: userWayWidgetOpen ? 'open' : 'close',
+                                  source: 'userway'
+                              }, '*');
+                          } catch (e) {
+                              // console.error('Error communicating with UserWay via postMessage:', e);
+                          }
+                      } else {
+                          // console.warn('UserWay widget elements not found. Cannot open widget.');
+                      }
+                  }
+              }
+          });
+      }
+
+      // Listen for UserWay's initialization to reliably hide the icon - NEW
+      document.addEventListener('userway:init_completed', function (event) {
+          if (event.detail && event.detail.userWayInstance && typeof event.detail.userWayInstance.iconVisibilityOff === 'function') {
+              event.detail.userWayInstance.iconVisibilityOff();
+          } else if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+              UserWay.iconVisibilityOff();
+          } else {
+              const icon = document.querySelector('#userwayAccessibilityIcon');
+              if (icon) icon.style.display = 'none';
+          }
+      });
+
+      function init() {
+        // Original init logic for events.html might not involve curtains/hero text like index.
+        // Only call hideUserWayIcon if other init logic specific to events.html is preserved.
+        // For events.html, the old init had curtain logic that likely did nothing.
+        // We will keep it minimal if it doesn't break anything or remove if confirmed unnecessary.
+        // Based on the file, the curtain logic was there but probably ineffective.
+        // curtainLeft.style.transform = "translateX(-100%)"; 
+        // curtainRight.style.transform = "translateX(100%)";
+        // heroText.style.opacity = 1;
+        // curtainLinks.forEach((link) => (link.style.opacity = 0));
+        // window.addEventListener("scroll", handleScroll);
+
+        hideUserWayIcon(); // This will call the new hideUserWayIcon
+      }
+
+      // NEW hideUserWayIcon function
+      function hideUserWayIcon() {
+          if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+              UserWay.iconVisibilityOff();
+              return;
+          }
+          const userwayIcon = document.querySelector(
+            "#userwayAccessibilityIcon"
+          );
+          if (userwayIcon) {
+            userwayIcon.style.display = "none";
+          } else {
+            let checks = 0;
+            const checkInterval = setInterval(() => {
+              checks++;
+              const icon = document.querySelector("#userwayAccessibilityIcon");
+              if (icon || checks >= 10) {
+                clearInterval(checkInterval);
+                if (icon) icon.style.display = "none";
+              }
+            }, 500);
+          }
+      }
+
+      init();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const newsletterBtn = document.getElementById("newsletterBtn");
+      const closeBtn = document.getElementById("closeNewsletterBtn");
+
+      // Show button after 3 seconds
+      setTimeout(function () {
+        console.log("Attempting to show newsletter button");
+        if (!localStorage.getItem("newsletterClosed")) {
+          console.log("Showing newsletter button");
+          newsletterBtn.classList.add("visible");
+        } else {
+          console.log("Newsletter was previously closed by user");
+        }
+      }, 3000);
+
+      // Close button functionality
+      closeBtn.addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevent triggering the main button click
+        newsletterBtn.classList.remove("visible");
+        newsletterBtn.classList.add("hidden");
+
+        // Store preference in localStorage
+        localStorage.setItem("newsletterClosed", "true");
+      });
+
+      // Main button click (could link to a signup page)
+      newsletterBtn.addEventListener("click", function () {
+        // Replace this with your actual signup functionality
+        window.location.href = "/newsletter-signup.html";
+      });
+    });
+  </script>
+  <script>
+    // Intersection Observer for animated text
+    document.addEventListener("DOMContentLoaded", function () {
+      // Hero text animation is handled by CSS
+
+      // Animate paragraphs when they come into view
+      const animatedElements = document.querySelectorAll(".animatedtext");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        }
+      );
+
+      animatedElements.forEach((element) => {
+        observer.observe(element);
+      });
+    });
+  </script>
+  <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileToggle = document.querySelector('.mobile-menu-toggle');
+      const navbar = document.querySelector('.navbar');
+      const mobileMenu = document.createElement('div');
+      mobileMenu.className = 'mobile-menu-overlay';
+  
+      // Create mobile menu content
+      mobileMenu.innerHTML = `
+        <div class="mobile-menu-header">
+          <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="mobile-menu-logo">
+          <button class="mobile-menu-close" aria-label="Close menu">×</button>
+        </div>
+        <div class="mobile-menu-links">
+          <a class="orangelink" href="about.html">About</a>
+          <a class="orangelink" href="getinvolved.html">Get Involved</a>
+          <a class="orangelink" href="events.html">Events</a>
+          <a class="orangelink" href="news.html">News</a>
+        </div>
+      `;
+  
+      document.body.appendChild(mobileMenu);
+      const closeButton = mobileMenu.querySelector('.mobile-menu-close');
+  
+      // Toggle menu
+      mobileToggle.addEventListener('click', function () {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        navbar.style.opacity = '0';
+        navbar.style.pointerEvents = 'none'; // Disable interactions
+      });
+  
+      // Close menu
+      closeButton.addEventListener('click', function () {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        navbar.style.opacity = '1';
+        navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+      });
+  
+      // Close menu when clicking on links
+      const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-links a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+          navbar.style.opacity = '1';
+          navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
