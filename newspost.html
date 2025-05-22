@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post | Honey Theatre</title>
+
+  <!-- Primary Meta Tags - These will be dynamically updated via JavaScript for each post -->
+  <meta name="title" content="Blog Post | Honey Theatre">
+  <meta name="description" content="Read this blog post from Honey Theatre to learn more about our work, community, and creative projects.">
+  <meta name="keywords" content="honey theatre blog, theatre blog post, performing arts news, creative community news">
+  <meta name="author" content="Honey Theatre">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook - Will be dynamically updated -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://honeytheatre.com/newspost.html">
+  <meta property="og:title" content="Blog Post | Honey Theatre">
+  <meta property="og:description" content="Read this blog post from Honey Theatre to learn more about our work, community, and creative projects.">
+  <meta property="og:image" content="https://honeytheatre.com/static/img/HoneyIcon.png">
+
+  <!-- Twitter - Will be dynamically updated -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://honeytheatre.com/newspost.html">
+  <meta property="twitter:title" content="Blog Post | Honey Theatre">
+  <meta property="twitter:description" content="Read this blog post from Honey Theatre to learn more about our work, community, and creative projects.">
+  <meta property="twitter:image" content="https://honeytheatre.com/static/img/HoneyIcon.png">
+
+  <!-- Canonical URL - This should ideally be updated dynamically per post -->
+  <link rel="canonical" href="https://honeytheatre.com/newspost.html">
+
+  <!-- Existing links -->
+  <link href="https://db.onlinewebfonts.com/c/413438edc16177b70627d108238ec05f?family=TRJN+DaVinci+Text"
+    rel="stylesheet" />
+  <script src="https://cdn.userway.org/widget.js" data-account="AlXfe9YAX3"></script>
+  <link rel="stylesheet" href="static/styles/mainstyle.css" />
+  <link rel="icon" type="image/png" href="/static/img/HoneyIcon.png">
+
+  <!-- Structured Data - This will be dynamically updated via JavaScript for each post -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Blog Post | Honey Theatre",
+    "image": "https://honeytheatre.com/static/img/HoneyIcon.png",
+    "url": "https://honeytheatre.com/newspost.html",
+    "datePublished": "2023-01-01T00:00:00+00:00",
+    "dateModified": "2023-01-01T00:00:00+00:00",
+    "description": "Read this blog post from Honey Theatre to learn more about our work, community, and creative projects.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Honey Theatre",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://honeytheatre.com/static/img/HoneyIcon.png"
+      }
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Honey Theatre"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://honeytheatre.com/newspost.html"
+    }
+  }
+  </script>
+
+  <style>
+    /* Post content styles */
+    .post-content {
+      font-family: "Avenir Next", sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+
+    .post-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .post-title {
+      font-size: 2.5rem;
+      color: #FF8000;
+      margin-bottom: 10px;
+    }
+
+    .post-date {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .post-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+
+    .post-content p {
+      margin-bottom: 20px;
+    }
+
+    .post-content h2 {
+      color: #FF8000;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .post-content a {
+      color: #0000FF;
+      text-decoration: none;
+    }
+
+    .post-content a:hover {
+      text-decoration: underline;
+    }
+
+    .post-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .post-category {
+      background: rgba(225, 225, 225, 0.8);
+      font-size: 14px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      color: #0000FF;
+      border: 1px solid #0000FF;
+    }
+
+    .back-to-blog {
+      display: inline-block;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      background-color: #FF8000;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .back-to-blog:hover {
+      background-color: #0000FF;
+    }
+
+    .post-author {
+      font-style: italic;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    /* Loading state */
+    .loading-state {
+      text-align: center;
+      padding: 50px 0;
+    }
+
+    .loading-animation {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 128, 0, 0.2);
+      border-radius: 50%;
+      border-top-color: #FF8000;
+      animation: spin 1s ease-in-out infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Additional styles for newspost page */
+    .post-container {
+      max-width: 900px;
+      margin: 120px auto 50px;
+      padding: 0 20px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #F68A3F;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .back-link:hover {
+      color: #0000ff;
+    }
+
+    .post-meta {
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .post-tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-left: 5px;
+    }
+
+    .blog-grid-keyword {
+      white-space: nowrap;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .post-content figure {
+      margin: 20px 0;
+    }
+
+    .post-content figcaption {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    .loading-message {
+      text-align: center;
+      margin: 100px 0;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .error-message {
+      text-align: center;
+      margin: 100px 0;
+      color: #d9534f;
+    }
+
+    @media (max-width: 768px) {
+      .post-title {
+        font-size: 1.8rem;
+      }
+
+      .post-container {
+        margin-top: 80px;
+      }
+    }
+
+    /* Styles for Related Posts Section */
+    .related-posts-grid-container {
+      display: flex;
+      overflow-x: auto; /* Allow horizontal scrolling */
+      gap: 20px; /* Space between cards */
+      padding-bottom: 20px; /* Space for scrollbar and visual padding */
+      margin-top: 20px;
+    }
+
+    .related-post-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      flex: 0 0 280px; /* Fixed width for each card, adjust as needed */
+      /* min-width: 250px; */
+    }
+
+    .related-post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .related-post-card .blog-grid-image-wrapper {
+      width: 100%;
+      height: 150px; /* Fixed height for image container */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .related-post-card .blog-grid-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .related-post-card .blog-grid-keywords {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .related-post-card .blog-grid-keyword {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .related-post-card .blog-grid-content {
+      padding: 15px;
+    }
+
+    .related-post-card .blog-grid-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      /* Clamp to 2 lines */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: calc(1.1rem * 1.3 * 2); /* font-size * line-height * lines */
+    }
+
+    .related-post-card .blog-grid-time {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .related-post-card .blog-grid-readmore {
+      font-size: 0.9rem;
+      color: #F68A3F;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbaralt2">
+    <a href="index.html"> <img src="static/img/Honey Logo small black.png" alt="Honey Theatre Logo" class="logo"></a>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a class="orangelink" href="about.html">About</a>
+      <a class="orangelink" href="getinvolved.html">Get Involved</a>
+      <a class="orangelink" href="events.html">Events</a>
+      <a class="orangelink" href="news.html">News</a>
+    </div>
+    <button class="accessibility-toggle " aria-label="Toggle accessibility features">
+      <span class="toggle-label">ACCESSIBILITY</span>
+      <span class="toggle-switch toggle-switch-black">
+        <span class="toggle-handle toggle-handle-black"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div class="post-container">
+    <a href="news.html" class="back-link">← Back to News</a>
+    <div id="post-content">
+      <div class="loading-container" id="loadingContainer_newspost" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;">
+        <video autoplay loop muted playsinline class="loading-gif" style="width: 100px; height: 100px;">
+          <source src="/static/video/loading.mp4" type="video/mp4">
+          <img src="/static/img/loading-fallback.gif" alt="Loading..." style="width: 100px; height: 100px;">
+        </video>
+        <div class="loading-message" style="margin-top: 10px;">Loading post...</div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="endspacer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- Column 1: Logo -->
+      <div class="footer-column">
+        <a href="#" class="back-to-top" title="Back to Top">
+          <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="footer-logo">
+        </a>
+      </div>
+
+      <!-- Column 2: Contact -->
+      <div class="footer-column">
+        <h3><a href="/contact.html">CONTACT US</a></h3>
+        <p><a href="mailto:honeytheatreco@gmail.com">honeytheatreco@gmail.com</a></p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/honey.theatre/" target="_blank" class="social-icon">
+            <img src="static/img/instagramWhite.png" alt="Instagram" />
+          </a>
+          <a href="https://www.tiktok.com/@honey.theatre?_t=ZN-8wPKbuLbBQs&_r=1" class="social-icon" target="_blank">
+            <img src="static/img/tiktoklogoWhite.png" alt="TikTok" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Support -->
+      <div class="footer-column">
+        <h3><a href="/support.html">SUPPORT US</a></h3>
+        <p>© Honey Theatre 2025</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      Website Designed & Developed by <a href="https://www.1-earth.world" target="_blank">1EARTH Productions</a>
+      🌐
+    </div>
+  </footer>
+
+  <script>
+    // Track UserWay widget state
+    let userWayWidgetOpen = false;
+    let allPostsDataGlobal = []; // Store all posts globally once fetched
+
+    // --- HELPER FUNCTION DEFINITIONS ---
+    function getAuthorFromClassList(classList) {
+        const authorTag = classList.find(item => item.startsWith('tag-'));
+        if (!authorTag) return '';
+        const authorName = authorTag.replace('tag-', '').replace(/-/g, ' ');
+        return authorName.split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+    }
+
+    function formatRelativeDate(postDate) {
+        const now = new Date();
+        const date = new Date(postDate);
+        const seconds = Math.floor((now - date) / 1000);
+        let interval = Math.floor(seconds / 31536000);
+        if (interval >= 1) return interval === 1 ? "1 year ago" : `${interval} years ago`;
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) return interval === 1 ? "1 month ago" : `${interval} months ago`;
+        interval = Math.floor(seconds / 604800);
+        if (interval >= 1) return interval === 1 ? "1 week ago" : `${interval} weeks ago`;
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) return interval === 1 ? "1 day ago" : `${interval} days ago`;
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) return interval === 1 ? "1 hour ago" : `${interval} hours ago`;
+        interval = Math.floor(seconds / 60);
+        if (interval >= 1) return interval === 1 ? "1 minute ago" : `${interval} minutes ago`;
+        return "Just now";
+    }
+
+    function renderPost(post, allPosts) {
+        const postContainer = document.getElementById('post-content');
+        if (!postContainer) {
+            console.error("Post content container not found!");
+            return;
+        }
+        const date = new Date(post.date);
+        const formattedDate = date.toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+        const authorName = getAuthorFromClassList(post.class_list);
+        let categories = [];
+        if (post._embedded && post._embedded['wp:term']) {
+          categories = post._embedded['wp:term'][0] || [];
+        }
+        postContainer.innerHTML = `
+          <div class="post-header">
+            <h1 class="post-title">${post.title.rendered}</h1>
+            <div class="post-meta">
+              <span class="post-date">${formattedDate}</span>
+              ${categories.length > 0 ?
+            ` | <div class="post-tags-container">
+                ${categories.map(cat => `<span class="blog-grid-keyword">${cat.name}</span>`).join('')}
+              </div>` :
+            ''}
+            </div>
+            <p class="author-text">${authorName ? `By <strong>${authorName}</strong>` : ''}</p>
+          </div>
+          <div class="post-content">
+            ${post.content.rendered}
+          </div>
+        `;
+        const relatedPostsSection = document.createElement('div');
+        relatedPostsSection.className = 'related-posts-section';
+        relatedPostsSection.style.marginTop = '50px';
+        relatedPostsSection.innerHTML = `
+          <h2 style="font-size: 1.8rem; margin-bottom: 20px; color: #333;">You may also be interested in</h2>
+          <div id="related-posts-grid" class="related-posts-grid-container"></div>
+          <br><br>
+          <a href="news.html" class="back-link">← Back to News</a>
+        `;
+        postContainer.appendChild(relatedPostsSection);
+        const images = postContainer.querySelectorAll('.post-content img');
+        images.forEach(img => {
+          img.style.maxWidth = '100%'; img.style.height = 'auto'; img.style.borderRadius = '8px';
+        });
+        const figures = postContainer.querySelectorAll('.post-content figure');
+        figures.forEach(fig => { fig.style.margin = '20px 0'; });
+        const figcaptions = postContainer.querySelectorAll('.post-content figcaption');
+        figcaptions.forEach(figcap => {
+          figcap.style.textAlign = 'center'; figcap.style.fontSize = '0.9rem';
+          figcap.style.color = '#666'; figcap.style.marginTop = '8px';
+        });
+        displayRelatedPosts(allPosts, post.id);
+    }
+
+    function displayRelatedPosts(allPosts, currentPostId) {
+        const relatedGrid = document.getElementById('related-posts-grid');
+        if (!relatedGrid) return;
+        const currentPost = allPosts.find(p => p.id === currentPostId);
+        if (!currentPost) return;
+        const currentPostCategories = (currentPost._embedded?.["wp:term"]?.[0]?.map(cat => cat.id) || []);
+        let related = allPosts.filter(p => {
+            if (p.id === currentPostId) return false;
+            const postCategories = (p._embedded?.["wp:term"]?.[0]?.map(cat => cat.id) || []);
+            return postCategories.some(catId => currentPostCategories.includes(catId));
+        });
+        const maxRelatedToShow = 4;
+        if (related.length < maxRelatedToShow) {
+            const otherPosts = allPosts.filter(p => p.id !== currentPostId && !related.find(r => r.id === p.id))
+                                     .sort((a, b) => new Date(b.date) - new Date(a.date));
+            related = [...related, ...otherPosts.slice(0, maxRelatedToShow - related.length)];
+        }
+        related = related.slice(0, maxRelatedToShow);
+        if (related.length === 0) {
+            relatedGrid.innerHTML = '<p style="color: #777;">No other posts to show right now.</p>';
+            return;
+        }
+        related.forEach((post) => {
+            const postCard = document.createElement('a');
+            const originalPostIndex = allPosts.findIndex(p => p.id === post.id);
+            const reversePostId = allPosts.length - originalPostIndex;
+            postCard.href = `newspost.html#${reversePostId}`;
+            postCard.target = "_blank";
+            postCard.rel = "noopener noreferrer";
+            postCard.className = 'related-post-card';
+            const title = post.title.rendered;
+            const categories = post._embedded?.["wp:term"]?.[0]?.map(cat => cat.name) || [];
+            const content = post.content.rendered;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/html');
+            const firstImg = doc.querySelector('img');
+            const imageSrc = firstImg ? firstImg.src : "static/img/construction.JPG";
+            postCard.innerHTML = `
+                <div class="blog-grid-image-wrapper">
+                    <img src="${imageSrc}" alt="${title}">
+                    ${categories.length > 0 ? `<div class="blog-grid-keywords">
+                        ${categories.slice(0, 2).map(cat => `<span class="blog-grid-keyword">${cat}</span>`).join('')}
+                    </div>` : ''}
+                </div>
+                <div class="blog-grid-content">
+                    <div class="blog-grid-title">${title}</div>
+                    <div class="blog-grid-time">${formatRelativeDate(post.date)}</div>
+                    <span class="blog-grid-readmore">Read more...</span>
+                </div>
+            `;
+            relatedGrid.appendChild(postCard);
+        });
+    }
+    // --- END HELPER FUNCTION DEFINITIONS ---
+
+    function loadCurrentPost() {
+      const postContentContainer = document.getElementById('post-content');
+      if (!postContentContainer) return;
+      // Update loading message to include video/gif structure
+      postContentContainer.innerHTML = `
+        <div class="loading-container" id="loadingContainer_newspost" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;">
+          <video autoplay loop muted playsinline class="loading-gif" style="width: 100px; height: 100px;">
+            <source src="/static/video/loading.mp4" type="video/mp4">
+            <img src="/static/img/loading-fallback.gif" alt="Loading..." style="width: 100px; height: 100px;">
+          </video>
+          <div class="loading-message" style="margin-top: 10px;">Loading post...</div>
+        </div>
+      `;
+
+      const postIdFromHash = window.location.hash.substring(1);
+
+      if (!postIdFromHash) {
+        postContentContainer.innerHTML = `
+          <div class="error-message">
+            No post specified. Please go back to the <a href="news.html">news page</a> and select a post.
+          </div>
+        `;
+        return;
+      }
+
+      // If posts already fetched, use them, otherwise fetch
+      if (allPostsDataGlobal.length > 0) {
+        processAndRenderPost(allPostsDataGlobal, postIdFromHash);
+      } else {
+        const apiURL = "https://public-api.wordpress.com/wp/v2/sites/honeytheatre.wordpress.com/posts?_embed&per_page=100";
+        fetch(apiURL)
+          .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+          })
+          .then(posts => {
+            allPostsDataGlobal = posts; // Store globally
+            processAndRenderPost(allPostsDataGlobal, postIdFromHash);
+          })
+          .catch(error => {
+            console.error("Error loading posts data:", error);
+            if(postContentContainer) {
+              postContentContainer.innerHTML = `
+                <div class="error-message">
+                  Error loading post data: ${error.message}. Please try again or go back to the <a href="news.html">news page</a>.
+                </div>
+              `;
+            }
+          });
+      }
+    }
+
+    function processAndRenderPost(allPosts, postIdFromHash) {
+      const postIndex = allPosts.length - parseInt(postIdFromHash);
+      if (postIndex < 0 || postIndex >= allPosts.length || isNaN(postIndex)) {
+        document.getElementById('post-content').innerHTML = `
+          <div class="error-message">
+            Post not found. Please go back to the <a href="news.html">news page</a> and select a post.
+          </div>
+        `;
+        return;
+      }
+      const post = allPosts[postIndex];
+      renderPost(post, allPosts); // renderPost now gets allPosts for related items
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadCurrentPost(); // Initial load
+
+      window.addEventListener('hashchange', loadCurrentPost); // Listen for hash changes
+
+      const accessibilityToggle = document.querySelector(
+        ".accessibility-toggle"
+      );
+
+      // Handle accessibility toggle - NEW VERSION
+      if (accessibilityToggle) {
+          accessibilityToggle.addEventListener('click', function () {
+              this.classList.toggle('active');
+              userWayWidgetOpen = !userWayWidgetOpen;
+
+              if (typeof UserWay === 'object' && typeof UserWay.widgetToggle === 'function') {
+                  UserWay.widgetToggle();
+              } else {
+                  const userwayButton = document.querySelector('#userwayAccessibilityIcon');
+                  if (userwayButton) {
+                      userwayButton.click();
+                  } else {
+                      const userwayIframe = document.querySelector('#userway-widget iframe');
+                      if (userwayIframe && userwayIframe.contentWindow) {
+                          try {
+                              userwayIframe.contentWindow.postMessage({
+                                  action: userWayWidgetOpen ? 'open' : 'close',
+                                  source: 'userway'
+                              }, '*');
+                          } catch (e) {
+                              // console.error('Error communicating with UserWay via postMessage:', e);
+                          }
+                      } else {
+                          // console.warn('UserWay widget elements not found. Cannot open widget.');
+                      }
+                  }
+              }
+          });
+      }
+
+      // Listen for UserWay's initialization to reliably hide the icon - NEW
+      document.addEventListener('userway:init_completed', function (event) {
+          if (event.detail && event.detail.userWayInstance && typeof event.detail.userWayInstance.iconVisibilityOff === 'function') {
+              event.detail.userWayInstance.iconVisibilityOff();
+          } else if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+              UserWay.iconVisibilityOff();
+          } else {
+              const icon = document.querySelector('#userwayAccessibilityIcon');
+              if (icon) icon.style.display = 'none';
+          }
+      });
+
+      function init() {
+        // Preserve any specific init logic for newspost.html
+        // The old init had curtain logic which is likely not effective here.
+        // curtainLeft.style.transform = "translateX(-100%)";
+        // curtainRight.style.transform = "translateX(100%)";
+        // heroText.style.opacity = 1;
+        // curtainLinks.forEach((link) => (link.style.opacity = 0));
+        // window.addEventListener("scroll", handleScroll);
+
+        hideUserWayIcon(); // This will call the new hideUserWayIcon
+      }
+
+      // NEW hideUserWayIcon function
+      function hideUserWayIcon() {
+          if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+              UserWay.iconVisibilityOff();
+              return;
+          }
+          const userwayIcon = document.querySelector(
+            "#userwayAccessibilityIcon"
+          );
+          if (userwayIcon) {
+            userwayIcon.style.display = "none";
+          } else {
+            let checks = 0;
+            const checkInterval = setInterval(() => {
+              checks++;
+              const icon = document.querySelector("#userwayAccessibilityIcon");
+              if (icon || checks >= 10) {
+                clearInterval(checkInterval);
+                if (icon) icon.style.display = "none";
+              }
+            }, 500);
+          }
+      }
+
+      init();
+
+      
+
+      // Back to top button
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (backToTopButton) {
+        backToTopButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+      }
+    });
+  </script>
+    <script>
+      // Mobile Menu Toggle
+      document.addEventListener('DOMContentLoaded', function () {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navbar = document.querySelector('.navbar');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'mobile-menu-overlay';
+    
+        // Create mobile menu content
+        mobileMenu.innerHTML = `
+          <div class="mobile-menu-header">
+            <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="mobile-menu-logo">
+            <button class="mobile-menu-close" aria-label="Close menu">×</button>
+          </div>
+          <div class="mobile-menu-links">
+            <a class="orangelink" href="about.html">About</a>
+            <a class="orangelink" href="getinvolved.html">Get Involved</a>
+            <a class="orangelink" href="events.html">Events</a>
+            <a class="orangelink" href="news.html">News</a>
+          </div>
+        `;
+    
+        document.body.appendChild(mobileMenu);
+        const closeButton = mobileMenu.querySelector('.mobile-menu-close');
+    
+        // Toggle menu
+        mobileToggle.addEventListener('click', function () {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          navbar.style.opacity = '0';
+          navbar.style.pointerEvents = 'none'; // Disable interactions
+        });
+    
+        // Close menu
+        closeButton.addEventListener('click', function () {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+          navbar.style.opacity = '1';
+          navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+        });
+    
+        // Close menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-links a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function () {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            navbar.style.opacity = '1';
+            navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+          });
+        });
+      });
+    </script>
+  
+</body>
+
+</html>

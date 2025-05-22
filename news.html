@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News | Honey Theatre Updates & Blog</title>
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="News | Honey Theatre Updates & Blog">
+  <meta name="description" content="Stay updated with the latest news, announcements, and blog posts from Honey Theatre. Discover our stories and insights.">
+  <meta name="keywords" content="Honey Theatre news, theatre blog, company updates, performing arts news, announcements">
+  <meta name="author" content="Honey Theatre">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://honeytheatre.com/news.html">
+  <meta property="og:title" content="News | Honey Theatre Updates & Blog">
+  <meta property="og:description" content="Stay updated with the latest news, announcements, and blog posts from Honey Theatre. Discover our stories and insights.">
+  <meta property="og:image" content="https://honeytheatre.com/static/img/HoneyIcon.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://honeytheatre.com/news.html">
+  <meta property="twitter:title" content="News | Honey Theatre Updates & Blog">
+  <meta property="twitter:description" content="Stay updated with the latest news, announcements, and blog posts from Honey Theatre. Discover our stories and insights.">
+  <meta property="twitter:image" content="https://honeytheatre.com/static/img/HoneyIcon.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://honeytheatre.com/news.html">
+
+  <!-- Existing links -->
+  <link href="https://db.onlinewebfonts.com/c/413438edc16177b70627d108238ec05f?family=TRJN+DaVinci+Text" rel="stylesheet" />
+  <script src="https://cdn.userway.org/widget.js" data-account="AlXfe9YAX3"></script>
+  <link rel="stylesheet" href="static/styles/mainstyle.css" />
+  <link rel="icon" type="image/png" href="/static/img/HoneyIcon.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Honey Theatre News & Blog",
+    "url": "https://honeytheatre.com/news.html",
+    "description": "The latest news, announcements, and blog posts from Honey Theatre.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "url":  "https://honeytheatre.com",
+      "name": "Honey Theatre"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Honey Theatre",
+        "url": "https://honeytheatre.com",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://honeytheatre.com/static/img/HoneyIcon.png"
+        }
+    }
+  }
+  </script>
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbaralt2">
+    <a href="index.html"> <img src="static/img/Honey Logo small black.png" alt="Honey Theatre Logo" class="logo"></a>
+
+    <!-- Mobile Menu Button - NEW ADDITION -->
+    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a class="orangelink" href="about.html">About</a>
+      <a class="orangelink" href="getinvolved.html">Get Involved</a>
+      <a class="orangelink" href="events.html">Events</a>
+      <a class="orangelink" href="news.html">News</a>
+    </div>
+    <button class="accessibility-toggle " aria-label="Toggle accessibility features">
+      <span class="toggle-label">ACCESSIBILITY</span>
+      <span class="toggle-switch toggle-switch-black">
+        <span class="toggle-handle toggle-handle-black"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div class="secondarylanding">
+    <!-- Sticky video background -->
+    <!-- <div class="image-container">
+      <img src="static/MEDIA/Support - Contact/Hummingbird BTS-270.JPG" alt="honey theater community" />
+    </div> -->
+
+    <!-- Hero text over video -->
+    <!-- <div class="hero-text2 orangetext">Support</div> -->
+  </div>
+  <!-- <button class="landingbutton" type="button" onclick="alert('Hello world!')">SUPPORT US!</button> -->
+
+  <div class="body-content">
+
+    <div class="news-search-holder">
+      <div id="search-active-keywords-container"></div>
+      <div class="search-input-wrapper">
+      <input type="text" id="blogSearch" placeholder="Search posts..." class="search-input">
+        <span class="search-icon-span">
+          <svg class="search-icon" viewBox="0 0 24 24" width="24" height="24">
+          <path
+            d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+        </svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="loading-container" id="loadingContainer">
+      <video autoplay loop muted playsinline class="loading-gif">
+        <source src="/static/video/loading.mp4" type="video/mp4">
+        <!-- Fallback image if video isn't supported -->
+        <img src="/static/img/loading-fallback.gif" alt="Loading...">
+      </video>
+      <div class="loading-message">Loading blog posts...</div>
+    </div>
+
+
+    <div class="blog-grid-container" id="blog-grid-container">
+      <!-- Blog posts will be dynamically inserted here -->
+    </div>
+    <div class="endspacer"></div>
+
+    <script>
+      function formatRelativeDate(postDate) {
+        const now = new Date();
+        const date = new Date(postDate);
+        const seconds = Math.floor((now - date) / 1000);
+    
+        let interval = Math.floor(seconds / 31536000);
+        if (interval >= 1) {
+          return interval === 1 ? "1 year ago" : `${interval} years ago`;
+        }
+    
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) {
+          return interval === 1 ? "1 month ago" : `${interval} months ago`;
+        }
+    
+        interval = Math.floor(seconds / 604800);
+        if (interval >= 1) {
+          return interval === 1 ? "1 week ago" : `${interval} weeks ago`;
+        }
+    
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+          return interval === 1 ? "1 day ago" : `${interval} days ago`;
+        }
+    
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) {
+          return interval === 1 ? "1 hour ago" : `${interval} hours ago`;
+        }
+    
+        interval = Math.floor(seconds / 60);
+        if (interval >= 1) {
+          return interval === 1 ? "1 minute ago" : `${interval} minutes ago`;
+        }
+    
+        return "Just now";
+      }
+    
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.getElementById("blog-grid-container");
+        const loadingContainer = document.getElementById("loadingContainer");
+        const apiURL = "https://public-api.wordpress.com/wp/v2/sites/honeytheatre.wordpress.com/posts?_embed&per_page=100";
+    
+        // Set up container for masonry layout
+        container.style.position = "relative";
+        container.style.marginTop = "10px";
+        container.style.padding = "0 20px";
+    
+        let columnWidth;
+        let columnCount = 4;
+        let posts = [];
+        let allPostElements = [];
+        let activeSearchKeywords = [];
+
+        const activeKeywordsContainer = document.getElementById('search-active-keywords-container');
+
+        function renderActiveKeywordPills() {
+            activeKeywordsContainer.innerHTML = '';
+            activeSearchKeywords.forEach(keyword => {
+                const pillEl = document.createElement('div');
+                pillEl.className = 'search-keyword-pill';
+                pillEl.textContent = keyword;
+                
+                const deleteBtn = document.createElement('span');
+                deleteBtn.className = 'delete-pill';
+                deleteBtn.innerHTML = '&times;';
+                deleteBtn.onclick = function() {
+                    activeSearchKeywords = activeSearchKeywords.filter(k => k !== keyword);
+                    renderActiveKeywordPills();
+                    performSearch();
+                };
+                pillEl.appendChild(deleteBtn);
+                activeKeywordsContainer.appendChild(pillEl);
+            });
+        }
+
+        function addActiveKeyword(keyword) {
+            const lowerKeyword = keyword.toLowerCase();
+            if (!activeSearchKeywords.map(k => k.toLowerCase()).includes(lowerKeyword)) {
+                activeSearchKeywords.push(keyword);
+                renderActiveKeywordPills();
+                performSearch();
+            }
+        }
+    
+        function positionItems() {
+          if (window.innerWidth <= 600) {
+            columnCount = 1;
+          } else if (window.innerWidth <= 900) {
+            columnCount = 2;
+          } else if (window.innerWidth <= 1200) {
+            columnCount = 3;
+          } else {
+            columnCount = 4;
+          }
+    
+          const containerWidth = container.clientWidth - 20;
+          const gap = 24;
+          columnWidth = (containerWidth - (gap * (columnCount - 1))) / columnCount;
+    
+          const columnHeights = Array(columnCount).fill(0);
+    
+          const visibleItems = Array.from(container.querySelectorAll('.blog-grid-post-link'))
+            .filter(item => item.style.display !== 'none');
+    
+          visibleItems.forEach((item) => {
+            let shortestColumnIndex = 0;
+            for (let i = 1; i < columnCount; i++) {
+              if (columnHeights[i] < columnHeights[shortestColumnIndex]) {
+                shortestColumnIndex = i;
+              }
+            }
+    
+            const xPos = shortestColumnIndex * (columnWidth + gap);
+            const yPos = columnHeights[shortestColumnIndex];
+    
+            item.style.position = "absolute";
+            item.style.width = `${columnWidth}px`;
+            item.style.left = `${xPos}px`;
+            item.style.top = `${yPos}px`;
+    
+            columnHeights[shortestColumnIndex] += item.offsetHeight + gap;
+          });
+    
+          container.style.height = `${Math.max(...columnHeights)}px`;
+        }
+    
+        // Show loading container initially
+        loadingContainer.style.display = 'flex';
+        container.style.display = 'none';
+    
+        fetch(apiURL)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(fetchedPosts => {
+            posts = fetchedPosts;
+            loadingContainer.style.display = 'none';
+            container.style.display = 'block';
+            container.innerHTML = "";
+            allPostElements = [];
+    
+            fetchedPosts.forEach((post, index) => {
+              const postEl = document.createElement("a");
+              postEl.href = `newspost.html#${fetchedPosts.length - index}`;
+              postEl.className = "blog-grid-post-link";
+              postEl.style.display = "block";
+              postEl.style.backgroundColor = "white";
+              postEl.style.borderRadius = "12px";
+              postEl.style.overflow = "hidden";
+              postEl.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+              postEl.style.transition = "transform 0.2s ease, box-shadow 0.2s ease";
+              postEl.style.textDecoration = "none";
+              postEl.style.color = "inherit";
+
+              const title = post.title.rendered;
+              let excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '');
+              const content = post.content.rendered;
+              const categories = post._embedded?.["wp:term"]?.[0]?.map(cat => cat.name) || [];
+    
+              if (excerpt.length > 200) {
+                excerpt = excerpt.substring(0, 200) + "...";
+              }
+    
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(content, 'text/html');
+              const firstImg = doc.querySelector('img');
+              const image = firstImg ? firstImg.src : "static/img/construction.JPG";
+    
+              postEl.innerHTML = `
+                <div class="blog-grid-image-wrapper">
+                  <img src="${image}" alt="Blog Image">
+                  <div class="blog-grid-keywords">
+                    ${categories.map(cat => `<span class="blog-grid-keyword">${cat}</span>`).join('')}
+                  </div>
+                </div>
+                <div class="blog-grid-content">
+                  <div class="blog-grid-title">${title}</div>
+                  <div class="blog-grid-time">${formatRelativeDate(post.date)}</div>
+                  <div class="blog-grid-description">${excerpt}</div>
+                  <span class="blog-grid-readmore">Read more...</span>
+                </div>
+              `;
+    
+              postEl.addEventListener("mouseenter", () => {
+                postEl.style.transform = "translateY(-4px)";
+                postEl.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.15)";
+              });
+    
+              postEl.addEventListener("mouseleave", () => {
+                postEl.style.transform = "";
+                postEl.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+              });
+    
+              // Add direct event listeners to keyword spans within this postEl
+              const keywordSpansInPost = postEl.querySelectorAll('.blog-grid-keyword');
+              keywordSpansInPost.forEach(keywordSpan => {
+                keywordSpan.addEventListener('click', function(keywordEvent) {
+                    keywordEvent.preventDefault();  // Stop any default action of the span itself
+                    keywordEvent.stopPropagation(); // CRITICAL: Stop this click from bubbling to the parent <a>
+                    const keywordText = keywordSpan.textContent;
+                    addActiveKeyword(keywordText);
+                });
+              });
+    
+              container.appendChild(postEl);
+              allPostElements.push(postEl);
+            });
+    
+            const allImages = container.querySelectorAll('img');
+            let loadedImagesCount = 0;
+    
+            function checkAllImagesLoaded() {
+              loadedImagesCount++;
+              if (loadedImagesCount >= allImages.length) {
+                positionItems();
+              }
+            }
+    
+            if (allImages.length === 0) {
+              positionItems();
+            } else {
+              allImages.forEach(img => {
+                if (img.complete) {
+                  checkAllImagesLoaded();
+                } else {
+                  img.addEventListener('load', checkAllImagesLoaded);
+                  img.addEventListener('error', checkAllImagesLoaded);
+                }
+              });
+            }
+          })
+          .catch(error => {
+            console.error("Error fetching posts:", error);
+            loadingContainer.style.display = 'none';
+            container.style.display = 'block';
+            container.innerHTML = "<p>Unable to load blog posts at this time.</p>";
+          });
+    
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            positionItems();
+          }, 250);
+        });
+    
+        const searchInput = document.getElementById('blogSearch');
+        let searchTimeout;
+    
+        function performSearch() {
+          const searchTerm = searchInput.value.toLowerCase().trim();
+          let hasResults = false;
+    
+          const currentActivePillKeywords = activeSearchKeywords.map(k => k.toLowerCase());
+
+          allPostElements.forEach((postEl, index) => {
+            const postData = posts[index];
+            const title = postData.title.rendered.toLowerCase();
+            const excerpt = postData.excerpt.rendered.toLowerCase();
+            const postCardOriginalKeywords = (postData._embedded?.["wp:term"]?.[0]?.map(cat => cat.name.toLowerCase()) || []);
+
+            let textMatch = true;
+            if (searchTerm) {
+                textMatch = title.includes(searchTerm) || excerpt.includes(searchTerm);
+            }
+
+            let keywordsMatch = true;
+            if (currentActivePillKeywords.length > 0) {
+                keywordsMatch = currentActivePillKeywords.every(pillKeyword => 
+                    postCardOriginalKeywords.includes(pillKeyword)
+                );
+            }
+
+            if (textMatch && keywordsMatch) {
+              postEl.style.display = 'block';
+              hasResults = true;
+            } else {
+              postEl.style.display = 'none';
+            }
+          });
+    
+          positionItems();
+        }
+    
+        // Add new input event listener with debounce
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+            performSearch();
+            }, 400); // 0.4 second delay
+        });
+    
+        // Initial call to display all posts and set up layout
+        performSearch();
+      });
+    </script>
+
+    <style>
+      .news-search-holder {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      .search-input-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      #blogSearch.search-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 35px;
+      }
+
+      .search-icon-span {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+      }
+      
+      .search-icon-span .search-icon path {
+        fill: #888;
+      }
+
+      #search-active-keywords-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+        padding: 5px 8px;
+        min-height: 40px;
+        justify-content: flex-start;
+        box-sizing: border-box;
+      }
+
+      .search-keyword-pill {
+        background-color: rgba(225, 225, 225, 0.8);
+        color: #0000ff;
+        padding: 0.2rem 0.5rem;
+        border-radius: 16px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        cursor: default;
+        border: 1px solid #0000ff;
+      }
+
+      .search-keyword-pill .delete-pill {
+        margin-left: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #0000ff;
+        font-size: 1rem;
+        line-height: 1;
+      }
+
+      .search-keyword-pill .delete-pill:hover {
+        color: #333;
+      }
+    </style>
+
+    <!-- Newsletter Button -->
+    <div class="newsletter-btn" id="newsletterBtn">
+      Sign up to our newsletter!
+      <button class="close-btn" id="closeNewsletterBtn">×</button>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <!-- Column 1: Logo -->
+        <div class="footer-column">
+          <a href="#" class="back-to-top" title="Back to Top">
+            <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="footer-logo">
+          </a>
+        </div>
+
+        <!-- Column 2: Contact -->
+        <div class="footer-column">
+          <h3><a href="/contact.html">CONTACT US</a></h3>
+          <p><a href="mailto:honeytheatreco@gmail.com">honeytheatreco@gmail.com</a></p>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/honey.theatre/" target="_blank" class="social-icon">
+              <img src="static/img/instagramWhite.png" alt="Instagram" />
+            </a>
+            <a href="https://www.tiktok.com/@honey.theatre?_t=ZN-8wPKbuLbBQs&_r=1" class="social-icon" target="_blank">
+              <img src="static/img/tiktoklogoWhite.png" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 3: Support -->
+        <div class="footer-column">
+          <h3><a href="/support.html">SUPPORT US</a></h3>
+          <p>© Honey Theatre 2025</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        Website Designed & Developed by <a href="https://www.1-earth.world" target="_blank">1EARTH Productions</a>
+        🌐
+      </div>
+    </footer>
+
+
+
+
+    <script>// BACK 2 TOP BUTTON SCRIPT
+      document.querySelector('.back-to-top').addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
+
+    <script>
+      // Track UserWay widget state
+      let userWayWidgetOpen = false;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const heroText = document.querySelector(".hero-text");
+        const curtainLeft = document.querySelector(".curtain-left");
+        const curtainRight = document.querySelector(".curtain-right");
+        const curtainLinks = document.querySelectorAll(".curtain-content a");
+        const accessibilityToggle = document.querySelector(
+          ".accessibility-toggle"
+        );
+
+        // let curtainsClosed = false;
+        // function handleScroll() { /* ... */ }
+
+        // Handle accessibility toggle - NEW VERSION
+        if (accessibilityToggle) {
+            accessibilityToggle.addEventListener('click', function () {
+                this.classList.toggle('active');
+          userWayWidgetOpen = !userWayWidgetOpen;
+
+                if (typeof UserWay === 'object' && typeof UserWay.widgetToggle === 'function') {
+                    UserWay.widgetToggle();
+                } else {
+                    const userwayButton = document.querySelector('#userwayAccessibilityIcon');
+          if (userwayButton) {
+            userwayButton.click();
+                    } else {
+                        const userwayIframe = document.querySelector('#userway-widget iframe');
+            if (userwayIframe && userwayIframe.contentWindow) {
+              try {
+                                userwayIframe.contentWindow.postMessage({
+                                    action: userWayWidgetOpen ? 'open' : 'close',
+                                    source: 'userway'
+                                }, '*');
+              } catch (e) {
+                                // console.error('Error communicating with UserWay via postMessage:', e);
+                            }
+                        } else {
+                            // console.warn('UserWay widget elements not found. Cannot open widget.');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Listen for UserWay's initialization to reliably hide the icon - NEW
+        document.addEventListener('userway:init_completed', function (event) {
+            if (event.detail && event.detail.userWayInstance && typeof event.detail.userWayInstance.iconVisibilityOff === 'function') {
+                event.detail.userWayInstance.iconVisibilityOff();
+            } else if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+                UserWay.iconVisibilityOff();
+            } else {
+                const icon = document.querySelector('#userwayAccessibilityIcon');
+                if (icon) icon.style.display = 'none';
+          }
+        });
+
+        function init() {
+          // Preserve any specific init logic for news.html
+          // The old init had curtain logic which is likely not effective here.
+          // curtainLeft.style.transform = "translateX(-100%)";
+          // curtainRight.style.transform = "translateX(100%)";
+          // heroText.style.opacity = 1;
+          // curtainLinks.forEach((link) => (link.style.opacity = 0));
+          // window.addEventListener("scroll", handleScroll);
+
+          hideUserWayIcon(); // This will call the new hideUserWayIcon
+        }
+
+        // NEW hideUserWayIcon function
+        function hideUserWayIcon() {
+            if (typeof UserWay === 'object' && typeof UserWay.iconVisibilityOff === 'function') {
+                UserWay.iconVisibilityOff();
+                return;
+            }
+          const userwayIcon = document.querySelector(
+            "#userwayAccessibilityIcon"
+          );
+          if (userwayIcon) {
+            userwayIcon.style.display = "none";
+          } else {
+            let checks = 0;
+            const checkInterval = setInterval(() => {
+              checks++;
+              const icon = document.querySelector("#userwayAccessibilityIcon");
+              if (icon || checks >= 10) {
+                clearInterval(checkInterval);
+                if (icon) icon.style.display = "none";
+              }
+            }, 500);
+          }
+        }
+
+        init();
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const newsletterBtn = document.getElementById('newsletterBtn');
+        const closeBtn = document.getElementById('closeNewsletterBtn');
+
+
+        // Show button after 3 seconds
+        setTimeout(function () {
+          console.log('Attempting to show newsletter button');
+          if (!localStorage.getItem('newsletterClosed')) {
+            console.log('Showing newsletter button');
+            newsletterBtn.classList.add('visible');
+          } else {
+            console.log('Newsletter was previously closed by user');
+          }
+        }, 3000);
+
+        // Close button functionality
+        closeBtn.addEventListener('click', function (e) {
+          e.stopPropagation(); // Prevent triggering the main button click
+          newsletterBtn.classList.remove('visible');
+          newsletterBtn.classList.add('hidden');
+
+          // Store preference in localStorage
+          localStorage.setItem('newsletterClosed', 'true');
+        });
+
+        // Main button click (could link to a signup page)
+        newsletterBtn.addEventListener('click', function () {
+          // Replace this with your actual signup functionality
+          window.location.href = '/newsletter-signup.html';
+        });
+      });
+    </script>
+    <script>
+      // Intersection Observer for animated text
+      document.addEventListener('DOMContentLoaded', function () {
+        // Hero text animation is handled by CSS
+
+        // Animate paragraphs when they come into view
+        const animatedElements = document.querySelectorAll('.animatedtext');
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(element => {
+          observer.observe(element);
+        });
+      });
+    </script>
+    <script>
+      // Mobile Menu Toggle
+      document.addEventListener('DOMContentLoaded', function () {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navbar = document.querySelector('.navbar');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'mobile-menu-overlay';
+    
+        // Create mobile menu content
+        mobileMenu.innerHTML = `
+          <div class="mobile-menu-header">
+            <img src="static/img/Honey Logo small White.png" alt="Honey Theatre Logo" class="mobile-menu-logo">
+            <button class="mobile-menu-close" aria-label="Close menu">×</button>
+          </div>
+          <div class="mobile-menu-links">
+            <a class="orangelink" href="about.html">About</a>
+            <a class="orangelink" href="getinvolved.html">Get Involved</a>
+            <a class="orangelink" href="events.html">Events</a>
+            <a class="orangelink" href="news.html">News</a>
+          </div>
+        `;
+    
+        document.body.appendChild(mobileMenu);
+        const closeButton = mobileMenu.querySelector('.mobile-menu-close');
+    
+        // Toggle menu
+        mobileToggle.addEventListener('click', function () {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          navbar.style.opacity = '0';
+          navbar.style.pointerEvents = 'none'; // Disable interactions
+        });
+    
+        // Close menu
+        closeButton.addEventListener('click', function () {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+          navbar.style.opacity = '1';
+          navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+        });
+    
+        // Close menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-links a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function () {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            navbar.style.opacity = '1';
+            navbar.style.pointerEvents = 'auto'; // Re-enable interactions
+          });
+        });
+      });
+    </script>
+
+</body>
+
+</html>
