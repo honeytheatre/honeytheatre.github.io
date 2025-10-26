@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /static/
-Disallow: /.cursor/
-Disallow: /.vscode/
-
-Sitemap: https://honeytheatre.com/sitemap.xml 
