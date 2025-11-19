@@ -72,6 +72,8 @@
   top: 0;
   left: 0;
   width: 100%;
+  /* z-index: -100; */
+  opacity: 80%;
   height: 100%;
   pointer-events: none;
   z-index: 0; /* Under orange sections (they should have z-index > 5) */
@@ -182,7 +184,7 @@ img:not(.bee) {
     </div>
     <div class="endspacer2"></div>
 
-    <div class="paragraph-holder">
+    <div class="paragraph-holder border-bottom">
 
       <p class="animatedtext">
       <div class="about-landing">
@@ -190,9 +192,8 @@ img:not(.bee) {
           Honey Theatre is a creative theatre company & community. <br><br>
         </p>
         <p class="animatedtext adaptivebody">
-          We champion bold storytellers of the global majority. 
-          <br>We are dedicated to well-being led artist development,
-          inclusive practices and exploring themes of heritage, intersectional identities and culture.
+          We champion bold storytellers of the global majority and are dedicated to well-being led artist development, 
+          inclusive industry practices and exploring themes of heritage, identity and culture.
         </p>
 
       </div>
@@ -205,18 +206,25 @@ img:not(.bee) {
       </p>
     </div>
 
+    <div class="global-container paragraph-holder">
+      <div class="globe"></div>
+      <div class="globe-text animatedtext">
+        Founded by <strong>Ilayda McIntosh</strong> and <strong>Sohaila Ferrier</strong>, our roots are proudly Caribbean and Middle Eastern. We created Honey Theatre to foster a creative home for those who look like us within the industry; for artists of the global majority. A space where our cultures are amplified, not  simplified. 
+      </div>
+    </div>
+
 
     <!-- <div class="endspacer2"></div> -->
 
     <section class="orange-banner">
 
-      <div class="paragraph-holder">
+      <div class="paragraph-holder no-margin-bottom-mobile">
         <div class="endspacer99"></div>
-        <p style="margin-bottom: 20px;" class="whitetext bigtext2 what-we-do">WHAT WE DO</p>
+        <p style="margin-bottom: 10px;" class="whitetext bigtext2 what-we-do">WHAT WE DO</p>
         
       </div>
 
-      <div class="paragraph-holder">
+      <div class="paragraph-holder less-gap">
 
         <p class="animatedtext">
         <div class="about-image">
@@ -225,12 +233,24 @@ img:not(.bee) {
         </p>
 
         <p class="animatedtext">
-        <div class="about-landing">
+        <div class="about-landing maxwidth50">
           <p class="whitetext bigtext2 what-we-do-inline">WHAT WE DO</p>
           <p class="whitetext sideinfo animatedtext">
-            From producing plays, development programmes, workshops and residencies, we aim to provide opportunities for
-            any creative that wants to nurture, develop and showcase their talent.
+            We produce plays, facilitate artist development programmes, workshops, residencies, exhibitions and more. In 2025, Honey expanded to New York to build a global creative network.
           </p>
+
+          <div class="what-we-do-list whitetext animatedtext">
+            <ul class="what-we-do-col">
+              <li>Workshop Facilitation</li>
+              <li>Theatre Trips</li>
+              <li>Marketing</li>
+            </ul>
+            <ul class="what-we-do-col ">
+              <li>Directing & Producing</li>
+              <li>Dramaturgy</li>
+              <li>Consultancy</li>
+            </ul>
+          </div>
 
         </div>
 
@@ -240,9 +260,31 @@ img:not(.bee) {
 
       </div>
 
-      <div class="endspacer2"></div>
+      <div class="endspacer9"></div>
 
     </section>
+
+    <section class="plain-banner">
+
+      <div class="smallhoneylogo">
+        <img src="static/img/Honey Logo small black.png" alt="Honey Theatre Logo" class="smallhoneylogo-img">
+      </div>
+      <div class="paragraph-holder">
+        <p class="animatedtext centrebody">
+          We are researching and developing new ways of working which prioritise creating safe, open and collaborative spaces to work. Where our members can have a place to experiment, perform and learn. <br><br>
+
+          We welcome people of all backgrounds and experiences, with a focus on supporting emerging, bold creatives. Our work centres the voices of Global Majority artists but our community is open to everyone. No matter who you are or where you're from, if you share our values, join the hive!<br><br>  
+
+        </p>
+
+      </div>
+      
+    </section>
+
+    
+    
+
+    <br><br>
     <div class="center-spacing">
       <button class="landingbutton landingbutton-nospace nohover" type="button">Meet The Team!</button>
     </div>
@@ -901,6 +943,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="/static/js/newsletter-popup.js"></script>
+<script src="/static/js/globe.js"></script>
+<script>
+  // Ensure "WHAT WE DO" bullets always fit on one line by shrinking font-size if needed
+  (function () {
+    function fitBulletsToOneLine() {
+      var lists = document.querySelectorAll('.what-we-do-list');
+      if (!lists.length) return;
+      lists.forEach(function(list){
+        var colWidth = 0;
+        // Each column <ul> gets measured separately
+        list.querySelectorAll('.what-we-do-col').forEach(function(col){
+          var items = col.querySelectorAll('li');
+          if (!items.length) return;
+          var parentWidth = col.clientWidth;
+          items.forEach(function(li){
+            // Reset to CSS size first so we can re-fit on resize
+            li.style.fontSize = '';
+            // Start from computed size and shrink as needed
+            var computed = window.getComputedStyle(li);
+            var fontSize = parseFloat(computed.fontSize) || 16;
+            var minSize = 10; // px safeguard
+            // While content is wider than its column, shrink font-size
+            // white-space: nowrap is already applied in CSS
+            while (li.scrollWidth > parentWidth && fontSize > minSize) {
+              fontSize -= 0.5;
+              li.style.fontSize = fontSize + 'px';
+            }
+          });
+        });
+      });
+    }
+    window.addEventListener('load', fitBulletsToOneLine);
+    window.addEventListener('resize', function(){
+      // Debounce a bit for better performance
+      clearTimeout(window.__fitBulletsTimer);
+      window.__fitBulletsTimer = setTimeout(fitBulletsToOneLine, 100);
+    });
+    // In case fonts load late
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function(){ setTimeout(fitBulletsToOneLine, 0); });
+    }
+  })();
+</script>
 </body>
 
 </html>
