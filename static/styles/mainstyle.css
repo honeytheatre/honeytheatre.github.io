@@ -416,6 +416,22 @@ body {
   height: 10vh;
 }
 
+
+.endspacer2border {
+  border-bottom: 2px solid #c9c9c9;
+  height: 8vh;
+  margin-bottom: 23px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+@media (max-width: 828px) {
+  .endspacer2border {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
 .endspacer3 {
   height: 5vh;
 }
@@ -1035,13 +1051,6 @@ body {
   margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .bigtext2 {
-    font-size: 45px;
-  }
-
-
-}
 
 
 .blog-grid-keywords {
@@ -1341,7 +1350,44 @@ body {
   padding: 20px;
   padding-top: 0px;
   text-align: left;
+  padding-left: 50px;
 }
+
+@media (max-width: 1308px) {
+  .globe-text {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 1178px) {
+  .globe-text {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .globe-text {
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 1010px) {
+  .globe-text {
+    padding-left: 2px;
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 920px) {
+  .globe-text {
+    padding-left: 20px;
+  }
+}
+
+
+
+
+
 
 @media (max-width: 1024px) {
   .globe-text {
@@ -1813,6 +1859,17 @@ body {
     width: 100%;
   }
 
+  @media (max-width: 768px) {
+    .bigtext2 {
+      font-size: 45px;
+      margin-top: 10px !important;
+      margin-bottom: 0px !important;
+    }
+  
+  
+  }
+  
+
   .event-row:hover {
     transform: none;
   }
@@ -1902,7 +1959,7 @@ body {
   }
 
   .orange-banner .sideinfo {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
   }
 }
 
@@ -1920,7 +1977,10 @@ body {
   padding: 0 0px 0 0;
   font-size: clamp(0.9rem, 1.6vw, 1.5rem);
   font-style: italic;
+  
 }
+
+
 
 .what-we-do-col li {
   margin: 8px 0;
@@ -1945,7 +2005,7 @@ body {
 
 @media (max-width: 1024px) {
   .what-we-do-col {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -2101,7 +2161,7 @@ body {
 
 
 .sideinfo {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   width: 100%;
   max-width: 90vw;
 }
@@ -2109,14 +2169,14 @@ body {
 /* Responsive adjustments */
 @media (max-width: 1100px) {
   .sideinfo {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
 
 }
 
 @media (max-width: 768px) {
   .sideinfo {
-    font-size: 1.2rem;
+    font-size: 1.0rem;
   }
 
 }
