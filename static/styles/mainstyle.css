@@ -967,6 +967,7 @@ body {
 }
 
 
+
 @media (max-width: 768px) {
   .border-desktop {
     border: none !important;
@@ -2673,7 +2674,8 @@ footer {
 }
 
 .footer-bottom a {
-  color: #999;
+  color: #0000ff;
+  font-weight: bold;
   /* text-decoration: none; */
   transition: color 0.3s ease;
 }
@@ -2976,6 +2978,14 @@ footer {
   z-index: 1001;
   padding: 5px;
 }
+
+@media (max-width: 768px) {
+  .subscribe-container {
+    margin-left:0px !important;
+    margin-right:0px !important;
+  }
+}
+
 
 .event-popup-close:hover {
   color: #0000ff;
@@ -3483,4 +3493,16 @@ footer {
 
 #flappy-game-over-message p {
   font-size: 1rem;
+}
+
+.contact-us-title {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .contact-us-title {
+    margin-top: 50px;
+    /* margin-bottom: 10px; */
+  }
 }
