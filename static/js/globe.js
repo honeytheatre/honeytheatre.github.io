@@ -37,9 +37,17 @@ function pauseAutoSpin() {
 function resumeAutoSpinWithDelay() {
   if (autoSpinResumeTimeout) {
     clearTimeout(autoSpinResumeTimeout);
+    autoSpinResumeTimeout = null;
   }
   autoSpinResumeTimeout = setTimeout(() => {
-    if (!userInteracting) {
+    // Check if momentum is still active before resuming auto-spin
+    const hasMomentum = controls && (
+      Math.abs(controls.momentumTheta) > (controls.minVelocity || 0.0001) || 
+      Math.abs(controls.momentumPhi) > (controls.minVelocity || 0.0001)
+    );
+    
+    // Only resume if user is not interacting and momentum has ended
+    if (!userInteracting && !hasMomentum) {
       autoSpinPaused = false;
     }
     autoSpinResumeTimeout = null;
@@ -908,6 +916,20 @@ class SimpleControls {
     this.lastMouseX = 0;
     this.lastMouseY = 0;
     
+    // MOMENTUM CONFIGURATION:
+    // momentumStrength: Multiplier for drag velocity (higher = more momentum)
+    this.momentumStrength = 0.15;
+    // friction: How quickly momentum decays (0.95 = 5% reduction per frame, higher = slower decay)
+    this.friction = 0.95;
+    // minVelocity: Minimum velocity threshold to apply momentum (prevents tiny movements from causing drift)
+    this.minVelocity = 0.0001;
+    
+    // Momentum state
+    this.momentumTheta = 0; // Horizontal rotation momentum
+    this.momentumPhi = 0;   // Vertical rotation momentum
+    this.velocityHistory = []; // Store recent velocities for smooth calculation
+    this.maxHistoryLength = 5; // Number of recent movements to track
+    
     this.spherical = new THREE.Spherical();
     this.spherical.setFromVector3(this.camera.position);
     
@@ -1001,6 +1023,11 @@ class SimpleControls {
     this.isDragging = true;
     this.lastMouseX = event.clientX;
     this.lastMouseY = event.clientY;
+    this.lastMoveTime = Date.now();
+    // Clear any existing momentum when starting new drag
+    this.momentumTheta = 0;
+    this.momentumPhi = 0;
+    this.velocityHistory = [];
     handleUserInteractionStart();
   }
   
@@ -1009,11 +1036,39 @@ class SimpleControls {
     
     const deltaX = event.clientX - this.lastMouseX;
     const deltaY = event.clientY - this.lastMouseY;
+    const currentTime = Date.now();
+    
+    // Track velocity for momentum calculation
+    if (this.lastMoveTime) {
+      const timeDelta = currentTime - this.lastMoveTime;
+      if (timeDelta > 0) {
+        // Calculate velocity (pixels per millisecond)
+        const velocityX = deltaX / timeDelta;
+        const velocityY = deltaY / timeDelta;
+        
+        // Store in history (keep only recent movements)
+        this.velocityHistory.push({
+          vx: velocityX,
+          vy: velocityY,
+          time: currentTime
+        });
+        
+        // Limit history size
+        if (this.velocityHistory.length > this.maxHistoryLength) {
+          this.velocityHistory.shift();
+        }
+      }
+    }
+    this.lastMoveTime = currentTime;
     
     // Natural panning: mouse right = globe rotates right, mouse down = globe rotates down
     this.spherical.theta -= deltaX * this.rotateSpeed;
     this.spherical.phi -= deltaY * this.rotateSpeed;
     this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi));
+    
+    // Clear momentum while actively dragging
+    this.momentumTheta = 0;
+    this.momentumPhi = 0;
     
     this.updateCamera();
     
@@ -1023,6 +1078,43 @@ class SimpleControls {
   
   onMouseUp() {
     this.isDragging = false;
+    
+    // Calculate momentum from velocity history
+    if (this.velocityHistory.length > 0) {
+      // Average the recent velocities for smoother momentum
+      let avgVx = 0;
+      let avgVy = 0;
+      let count = 0;
+      
+      // Weight recent movements more heavily
+      this.velocityHistory.forEach((entry, index) => {
+        const weight = (index + 1) / this.velocityHistory.length; // More recent = higher weight
+        avgVx += entry.vx * weight;
+        avgVy += entry.vy * weight;
+        count += weight;
+      });
+      
+      if (count > 0) {
+        avgVx /= count;
+        avgVy /= count;
+        
+        // Convert pixel velocity to rotation velocity
+        // Apply momentum strength multiplier
+        this.momentumTheta = -avgVx * this.rotateSpeed * this.momentumStrength;
+        this.momentumPhi = -avgVy * this.rotateSpeed * this.momentumStrength;
+        
+        // Only apply momentum if velocity is above threshold
+        if (Math.abs(this.momentumTheta) < this.minVelocity && Math.abs(this.momentumPhi) < this.minVelocity) {
+          this.momentumTheta = 0;
+          this.momentumPhi = 0;
+        }
+      }
+    }
+    
+    // Clear velocity history
+    this.velocityHistory = [];
+    this.lastMoveTime = null;
+    
     handleUserInteractionEnd();
   }
   
@@ -1045,6 +1137,11 @@ class SimpleControls {
       this.isDragging = true;
       this.lastMouseX = event.touches[0].clientX;
       this.lastMouseY = event.touches[0].clientY;
+      this.lastMoveTime = Date.now();
+      // Clear any existing momentum when starting new drag
+      this.momentumTheta = 0;
+      this.momentumPhi = 0;
+      this.velocityHistory = [];
       handleUserInteractionStart();
     }
   }
@@ -1053,11 +1150,39 @@ class SimpleControls {
     if (event.touches.length === 1 && this.isDragging) {
       const deltaX = event.touches[0].clientX - this.lastMouseX;
       const deltaY = event.touches[0].clientY - this.lastMouseY;
+      const currentTime = Date.now();
+      
+      // Track velocity for momentum calculation
+      if (this.lastMoveTime) {
+        const timeDelta = currentTime - this.lastMoveTime;
+        if (timeDelta > 0) {
+          // Calculate velocity (pixels per millisecond)
+          const velocityX = deltaX / timeDelta;
+          const velocityY = deltaY / timeDelta;
+          
+          // Store in history (keep only recent movements)
+          this.velocityHistory.push({
+            vx: velocityX,
+            vy: velocityY,
+            time: currentTime
+          });
+          
+          // Limit history size
+          if (this.velocityHistory.length > this.maxHistoryLength) {
+            this.velocityHistory.shift();
+          }
+        }
+      }
+      this.lastMoveTime = currentTime;
       
       // Natural panning: finger right = globe rotates right, finger down = globe rotates down
       this.spherical.theta -= deltaX * this.rotateSpeed;
       this.spherical.phi -= deltaY * this.rotateSpeed;
       this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi));
+      
+      // Clear momentum while actively dragging
+      this.momentumTheta = 0;
+      this.momentumPhi = 0;
       
       this.updateCamera();
       
@@ -1068,6 +1193,43 @@ class SimpleControls {
   
   onTouchEnd() {
     this.isDragging = false;
+    
+    // Calculate momentum from velocity history
+    if (this.velocityHistory.length > 0) {
+      // Average the recent velocities for smoother momentum
+      let avgVx = 0;
+      let avgVy = 0;
+      let count = 0;
+      
+      // Weight recent movements more heavily
+      this.velocityHistory.forEach((entry, index) => {
+        const weight = (index + 1) / this.velocityHistory.length; // More recent = higher weight
+        avgVx += entry.vx * weight;
+        avgVy += entry.vy * weight;
+        count += weight;
+      });
+      
+      if (count > 0) {
+        avgVx /= count;
+        avgVy /= count;
+        
+        // Convert pixel velocity to rotation velocity
+        // Apply momentum strength multiplier
+        this.momentumTheta = -avgVx * this.rotateSpeed * this.momentumStrength;
+        this.momentumPhi = -avgVy * this.rotateSpeed * this.momentumStrength;
+        
+        // Only apply momentum if velocity is above threshold
+        if (Math.abs(this.momentumTheta) < this.minVelocity && Math.abs(this.momentumPhi) < this.minVelocity) {
+          this.momentumTheta = 0;
+          this.momentumPhi = 0;
+        }
+      }
+    }
+    
+    // Clear velocity history
+    this.velocityHistory = [];
+    this.lastMoveTime = null;
+    
     handleUserInteractionEnd();
   }
   
@@ -1110,7 +1272,37 @@ class SimpleControls {
   }
   
   update() {
-    // Camera updates occur only during user interactions.
+    // Apply momentum if it exists
+    const hadMomentum = Math.abs(this.momentumTheta) > this.minVelocity || Math.abs(this.momentumPhi) > this.minVelocity;
+    
+    if (hadMomentum) {
+      // Apply momentum to rotation
+      this.spherical.theta += this.momentumTheta;
+      this.spherical.phi += this.momentumPhi;
+      this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi));
+      
+      // Apply friction to gradually slow down momentum
+      this.momentumTheta *= this.friction;
+      this.momentumPhi *= this.friction;
+      
+      // Stop momentum if it's too small
+      if (Math.abs(this.momentumTheta) < this.minVelocity) {
+        this.momentumTheta = 0;
+      }
+      if (Math.abs(this.momentumPhi) < this.minVelocity) {
+        this.momentumPhi = 0;
+      }
+      
+      // Update camera position
+      this.updateCamera();
+      
+      // Check if momentum just ended
+      const hasMomentumNow = Math.abs(this.momentumTheta) > this.minVelocity || Math.abs(this.momentumPhi) > this.minVelocity;
+      if (hadMomentum && !hasMomentumNow && !userInteracting) {
+        // Momentum just ended and user is not interacting, trigger auto-spin resume after delay
+        resumeAutoSpinWithDelay();
+      }
+    }
   }
 }
 
