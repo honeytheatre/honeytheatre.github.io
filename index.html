@@ -69,14 +69,16 @@
             width: 100%;
             height: 100%;
             z-index: 1000;
+           
         }
 
         .theLine {
             fill: none;
-            /* stroke: white; */
+            stroke: white;
             stroke-width: 0.3px;
             stroke-dasharray: 5, 5;
             /* Dashed for visibility */
+            z-index: 1000;
         }
 
         .bee {
@@ -901,7 +903,7 @@
       xPercent: -50,
       yPercent: -50,
       transformOrigin: "center center",
-      rotation: 90,
+      rotation: 45,
       motionPath: {
         path: ".theLine",
         align: ".theLine",
@@ -911,7 +913,7 @@
       }
     });
 
-    // Full page animation
+    // Create tween first without ScrollTrigger
     const beeTween = gsap.to(".bee", {
       motionPath: {
         path: ".theLine",
@@ -922,12 +924,81 @@
         end: 1
       },
       ease: "none",
-      scrollTrigger: {
-        trigger: "body",
-        start: "top 90%",
-        end: "bottom 30%",
-        scrub: 0.5,
-        // markers: true
+      immediateRender: false
+    });
+    
+    // Force progress to 0 to ensure bee starts at beginning
+    beeTween.progress(0);
+    
+    // Now attach ScrollTrigger
+    ScrollTrigger.create({
+      trigger: "body",
+      start: "top top", // Start immediately at scroll 0 (progress 0)
+      end: "bottom 30%",
+      scrub: 0.5,
+      invalidateOnRefresh: true,
+      animation: beeTween
+    });
+    
+    // Ensure bee is still at start after ScrollTrigger is attached
+    requestAnimationFrame(() => {
+      if (window.scrollY === 0) {
+        beeTween.progress(0);
+      }
+    });
+
+    // Get the ScrollTrigger reference
+    let st = null;
+    if (beeTween.scrollTrigger) {
+      st = beeTween.scrollTrigger;
+    } else {
+      const allST = ScrollTrigger.getAll();
+      st = allST.find(trigger => trigger.animation === beeTween);
+    }
+    
+    // Force bee to start at beginning of path after ScrollTrigger is created
+    requestAnimationFrame(() => {
+      // If we're at scroll 0 and ScrollTrigger thinks we're past the start, 
+      // we need to manually set the bee to the start position
+      if (window.scrollY === 0 && beeTween.progress() > 0) {
+        // Temporarily disable ScrollTrigger updates
+        if (st) {
+          st.disable();
+        }
+        
+        // Force tween progress to 0 (start of path)
+        beeTween.progress(0);
+        beeTween.invalidate();
+        
+        // Also explicitly set via motionPath to ensure position is correct
+        gsap.set(".bee", {
+          motionPath: {
+            path: ".theLine",
+            align: ".theLine",
+            alignOrigin: [0.5, 0.5],
+            start: 0,
+            end: 0
+          }
+        });
+        
+        // Re-enable ScrollTrigger
+        if (st) {
+          st.enable();
+          st.update();
+        }
+        
+        // Double-check after another frame
+        requestAnimationFrame(() => {
+          const finalProgress = beeTween.progress();
+          if (finalProgress > 0.01) { // Allow tiny floating point errors
+            if (st) st.disable();
+            beeTween.progress(0);
+            if (st) {
+              st.enable();
+              st.update();
+            }
+          }
+        });
       }
     });
 
