@@ -378,6 +378,10 @@ body {
   }
 }
 
+.align-center {
+  align-items: center;
+}
+
 .video-background {
   width: 100%;
   height: 100%;
@@ -1306,6 +1310,12 @@ body {
   flex: 0 0 auto;
 }
 
+@media (max-width: 768px) {
+  .centrebody {
+    padding: 0 10px;
+  }
+}
+
 /* Globe Container Styles */
 .global-container {
   position: relative;
@@ -1341,17 +1351,18 @@ body {
 .globe-text {
   position: absolute;
   left: calc(50% + var(--paragraph-gap, 30px));
-  top: 18%;
+  /* top: 18%; */
   transform: translateY(-50%);
   width: 40%;
   max-width: 600px;
   font-size: 1.1rem;
   line-height: 1.6;
   z-index: 2;
-  padding: 20px;
+  /* padding: 20px; */
   padding-top: 0px;
   text-align: left;
   padding-left: 50px;
+  align-self: center;
 }
 
 @media (max-width: 1308px) {
@@ -1375,7 +1386,7 @@ body {
 @media (max-width: 1010px) {
   .globe-text {
     padding-left: 2px;
-    padding-top: 10px;
+    /* padding-top: 10px; */
   }
 }
 
@@ -1385,20 +1396,15 @@ body {
   }
 }
 
-
-
-
-
-
 @media (max-width: 1024px) {
   .globe-text {
-    top: 10%;
+    /* top: 10%; */
   }
 }
 
 @media (max-width: 920px) {
   .globe-text {
-    top: 5%;
+    /* top: 5%; */
     font-size: 1rem;
   }
 }
@@ -1440,8 +1446,8 @@ body {
 
 .smallhoneylogo {
   text-align: center;
-  margin-top: 80px;
-  margin-bottom: 20px;
+  margin-top: 100px;
+  margin-bottom: 30px;
   /* width: 100px; */
 
   align-items: center;
@@ -1469,6 +1475,11 @@ body {
 @media (max-width: 768px) {
   .team-container {
     display: block;
+  }
+
+  .smallhoneylogo {
+    margin-top: 80px;
+    /* margin-bottom: 20px; */
   }
 }
 
@@ -1663,7 +1674,15 @@ body {
 }
 
 
+.margin-bottom {
+  margin-bottom: 20px !important;
+}
 
+@media (max-width: 768px) {
+  .margin-bottom {
+    margin-bottom: 10px !important;
+  }
+}
 @media (max-width: 768px) {
   .no-margin-bottom-mobile {
     margin-bottom: 0px !important;
@@ -1950,7 +1969,7 @@ body {
 
   .orange-banner .what-we-do-inline {
     display: block;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 }
 
@@ -2157,7 +2176,7 @@ body {
 
 
 .endspacer9 {
-  height: 2vh;
+  height: 1px;
 }
 
 
