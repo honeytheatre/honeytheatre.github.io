@@ -807,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function processMemberElements(memberBlockElements) {
         let name = '', role = '', imageUrl = '', bio = '';
-        const bioParagraphs = [];
+        const bioElements = [];
         let pCounter = 0; 
 
         for (const el of memberBlockElements) {
@@ -819,16 +819,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     role = el.textContent.trim();
                     pCounter++;
                 } else {
-                    bioParagraphs.push(el.innerHTML);
+                    // Preserve the full HTML structure including <p> tags and all formatting
+                    // Use outerHTML to keep the <p> tag itself, preserving all nested HTML like <strong>, <br>, etc.
+                    bioElements.push(el.outerHTML);
                 }
             } else if (el.tagName === 'FIGURE') {
                 const imgTag = el.querySelector('img');
                 if (imgTag && imgTag.src) {
                     imageUrl = imgTag.src;
                 }
+            } else if (pCounter >= 2) {
+                // Handle other HTML elements that might be part of the bio (divs, spans, etc.)
+                // Preserve their full HTML structure
+                bioElements.push(el.outerHTML);
             }
         }
-        bio = bioParagraphs.join('\n');
+        // Join with newlines to maintain readability, HTML will render properly
+        bio = bioElements.join('\n');
         return { name, role, imageUrl, bio };
     }
 
