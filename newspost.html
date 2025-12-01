@@ -284,6 +284,10 @@
     }
 
     /* Styles for Related Posts Section */
+    .related-posts-outer {
+      overflow: visible; /* Allow content to extend beyond the box */
+    }
+
     .related-posts-grid-container {
       display: flex;
       overflow-x: auto; /* Allow horizontal scrolling */
@@ -333,8 +337,8 @@
     }
 
     .related-post-card .blog-grid-keyword {
-      background-color: rgba(0,0,0,0.6);
-      color: white;
+      /* background-color: rgba(0,0,0,0.6); */
+      /* color: white; */
       padding: 3px 8px;
       border-radius: 12px;
       font-size: 0.75rem;
@@ -524,7 +528,9 @@
         relatedPostsSection.style.marginTop = '50px';
         relatedPostsSection.innerHTML = `
           <h2 style=" margin-top:100px;  font-size: 1.8rem; margin-bottom: 20px; color: #333;">You may also be interested in</h2>
-          <div id="related-posts-grid" class="related-posts-grid-container"></div>
+          <div class="related-posts-outer">
+            <div id="related-posts-grid" class="related-posts-grid-container"></div>
+          </div>
           <br><br>
           <a href="news.html" class="back-link">← Back to News</a>
         `;
